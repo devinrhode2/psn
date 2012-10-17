@@ -21,7 +21,7 @@ Same thing as PHP except you get to use javascript code in place of php code. Co
     //The above install feature is in the latest npm and I think it'll be released in node 0.8.13
     //I'd rather not have to update the npm registry with every update.
 
-* 5: Create a site. Use .ejs instead of .php. Good luck with databases or doing anything really interesting. I'm sarcastically serious.
+* 5: Create a site. Use .ejs files instead of .php. Good luck with databases or doing anything really interesting. I'm sarcastically serious.
 
 * 2: undefined
 

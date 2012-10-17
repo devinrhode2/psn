@@ -1,0 +1,19 @@
+{
+  "name": "psn",
+  "version": "800",
+  "description": "PSN - NOT PHOTOSHOP, OKAAAAY",
+  "author": "Devin Rhode <devinrhode2@gmail.com>",
+  "main": "index.js",
+  "preferGlobal": false,
+  "dependencies": {
+    "express": "*",
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/devinrhode2/psn"
+  },
+  "engines": {
+    "node": "*"
+  }
+}
