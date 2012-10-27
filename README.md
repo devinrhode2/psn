@@ -11,16 +11,10 @@ Same thing as PHP except you get to use javascript code in place of php code. Co
 * 1: Create new folder and put an empty server.js file in it
 * 3: Put `require('psn')` in the file.
 * 4: Open the Terminal or Command Prompt at this directory and run:
-
+```
     npm install devinrhode2/psn
-    
-    //This will fail if you don't have node 0.8.13 stable...
-    //which is so bleeding edge it isn't even available at the time of this writing, so do:
-    npm install git://github.com/devinrhode2/psn
-    
-    //The above install feature is in the latest npm and I think it'll be released in node 0.8.13
-    //I'd rather not have to update the npm registry with every update.
-
+    //This will fail if you don't have the latest version of node and npm
+```
 * 5: Create a site. Use .ejs files instead of .php. Good luck with databases or doing anything really interesting. I'm sarcastically serious.
 
 * 2: undefined
