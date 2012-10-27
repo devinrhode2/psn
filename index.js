@@ -1,6 +1,8 @@
-exports = module.exports;
-
-exports.startServer = function startServer(options) {
+module.exports.startServer = function startServer(options) {
+  //really, we want to include this via a gen.js module or something.
+  String.prototype.contains = function StringContains(substring){
+    return this.indexOf(substring) > -1;
+  };
   
   var express = require('express')
     , http = require('http');
@@ -9,6 +11,8 @@ exports.startServer = function startServer(options) {
   
   var app = express();
   
+  //child_process exec 'npm install', (err, stdout, stderr) ->
+
   app.configure(function appConfigure(){
     app.set('port', process.env.PORT || 3000);
     app.set('views', __dirname + '/public_html');
@@ -40,7 +44,7 @@ exports.startServer = function startServer(options) {
    */
   var mu = require('live-mu')
     , util = require('util');
-  mu.root = __dirname + '/views';
+  mu.root = __dirname + '/public_html';
   
   /**
    * Routing:

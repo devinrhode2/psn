@@ -6,7 +6,8 @@
   "main": "index.js",
   "preferGlobal": false,
   "dependencies": {
-    "express": "*",
+    "express": ">= 3.0.0rc2",
+    "colors": "*"
   },
   "devDependencies": {},
   "repository": {
