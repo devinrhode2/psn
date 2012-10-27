@@ -15,6 +15,7 @@ Same thing as PHP except you get to use javascript code in place of php code. Co
     npm install devinrhode2/psn
     //This will fail if you don't have the latest version of node and npm
 ```
+
 * 5: Create a site. Use .ejs files instead of .php. Good luck with databases or doing anything really interesting. I'm sarcastically serious.
 
 * 2: undefined
