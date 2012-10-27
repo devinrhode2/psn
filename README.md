@@ -18,7 +18,7 @@ Same thing as PHP except you get to use javascript code in place of php code. Co
 
 * 5: Create a site. Use .ejs files instead of .php. Good luck with databases or doing anything really interesting. I'm sarcastically serious.
 
-* 2: undefined
+* 2: `undefined`
 
 ## Contributing
 
