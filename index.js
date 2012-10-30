@@ -1,81 +1,78 @@
 module.exports.startServer = function startServer(options) {
-  //really, we want to include this via a gen.js module or something.
-  String.prototype.contains = function StringContains(substring){
+  String.prototype.contains = function StringContainsProto(substring){
+    // It would be better to get this from a generic library
     return this.indexOf(substring) > -1;
   };
   
-  var express = require('express')
-    , http = require('http');
   
-  require('colors');
+  /**
+   * Module dependencies.
+   */
+  
+  var express = require('express')
+    , http = require('http')
+    , path = require('path')
+    , fs = require('fs');
   
   var app = express();
   
-  //child_process exec 'npm install', (err, stdout, stderr) ->
-
-  app.configure(function appConfigure(){
+  app.configure(function appConfig(){
     app.set('port', process.env.PORT || 3000);
-    app.set('views', __dirname + '/public_html');
-    
-    // Removed view engine line because we're using .node files
+    app.set('views', __dirname + '/public');
+    app.set('view engine', 'ejs'); // Probably don't need this
     app.use(express.favicon());
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
     app.use(express.methodOverride());
-    app.use(app.router);
     
-    // From --sessions build option
+    // From --sessions
     if (!options) options = {};
     app.use(express.cookieParser(options.cookieSecret || 'psn trollin'));
-    app.use(express.session({ secret: options.sessionSecret || 'PNS TROOOLLLS' }));
+    app.use(express.session({ secret: options.sessionSecret || 'PSN TROOOLLLS' }));
+    
+    app.use(app.router);
     
     // For use .styl files in public and have it 'just work'
-    app.use(require('stylus').middleware(__dirname + '/public_html'));
-    app.use(express.static(__dirname + '/public_html'));
+    app.use(require('stylus').middleware(__dirname + '/public'));
+    app.use(express.static(path.join(__dirname, 'public')));
   });
+  
   
   app.configure('development', function(){
     app.use(express.errorHandler());
   });
   
-  
-  /**
-   * Require 'mu' mustache module
-   */
+  /*
+  // Require 'mu' mustache module
   var mu = require('live-mu')
     , util = require('util');
-  mu.root = __dirname + '/public_html';
+  mu.root = __dirname + '/public';
+  */
   
   /**
    * Routing:
    *
-   * '*' route filters all GET's. We do this so we can filter and handle .node files.
+   * '*' route filters all GET's. We do this so we can filter and handle .ejs files.
    */
   app.get('*', function(req, res, expressNext) {
     
     /**
-     * handleNodeRequest handles all the .node GET requests
+     * handleEjsRequest handles all the .ejs GET requests
      */
-    var handleNodeRequest = function handleNodeRequest(req, res, file){
+    var handleEjsRequest = function handleEjsRequest(req, res, file){
       file = file.toLowerCase();
-      
-      if (process.env.NODE_ENV == 'DEVELOPMENT') {
-        mu.clearCache();
-      }
-      
-      // This streams the file to the client as it's rendered!
-      util.pump(mu.compileAndRender(file, {req: req}), res);
-      // ...and that's it!
+            
+      res.render(file, { req: req });
     };
   
     // File is the requested file. (aka url)
     file = req.params[0].substr(1, req.params[0].length);
-    if (file.contains('.node')) {
-      handleNodeRequest(req, res, file);
+    if (file.contains('.ejs')) {
+      handleEjsRequest(req, res, file);
     } else {
       if (file.contains('.')) {
         if (file.contains('?')) {
-          throw 'woah, looks like you have a querystring for a non .node file. Please use a url to a .node file.';
+          throw 'woah, looks like you have a querystring for a non .ejs file. Please use a url to a .ejs file.';
         }
         
         // Forward request to /public folder.
@@ -85,35 +82,28 @@ module.exports.startServer = function startServer(options) {
         // If last character is a '/'
         if (file.charAt(file.length - 1) === '/') {
           
-          // Point to index.node of that folder
-          file = file + 'index.node';
+          // Point to index.ejs of that folder
+          file = file + 'index.ejs';
         } else {
           
           // Very very root of whole site
           if (file === '') {
             
-            // Point to 'index.node'
-            file = 'index.node';
+            // Point to 'index.ejs'
+            file = 'index.ejs';
           } else {
             
-            // Append '/index.node'
-            file = file + '/index.node';
+            // Append '/index.ejs'
+            file = file + '/index.ejs';
           }
         }
-        handleNodeRequest(req, res, file);
+        handleEjsRequest(req, res, file);
       }
     }
   });
   
   
-  /**
-   * Start server
-   */
-  http.createServer(app).listen(app.get('port'), function serverStarted(){
-    console.log(
-      'PSN SERVER RUNNING FROM YOU to: ' +
-      'http://localhost:'.blue.underline + app.get('port').toString().blue.underline
-    );
+  http.createServer(app).listen(app.get('port'), function(){
+    console.log('psn server running at: http://localhost:' + app.get('port').toString());
   });
 };
-
