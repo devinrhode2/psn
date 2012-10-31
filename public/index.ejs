@@ -2,12 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="foo">
   <title>Welcome</title>
+  <style type="text/css">
+    body {
+      padding: 50px;
+      font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    }
+  </style>
+  
+  <!--
+    Dear novice developers:
+    
+      Please use Learn, understand, and use HTML5BoilerPlate best practices for your web app.
+    You'll thank me later. Go, go now: github.com/h5bp/html5-boilerplate
+    
+    Sincerely,
+    DevinRhode2
+  -->
+  
 </head>
 <body>
-  <h1>PSN</h1>
+  <h1 style="margin-top:0px;">PSN</h1>
   <p>Welcome to PHP style node.</p>
-  <%= JSON.stringify(req); %>
+  <p>Here's the massive request object (req):</p>
+<pre><%= JSON.stringify(req) %></pre>
 </body>
 </html>

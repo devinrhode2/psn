@@ -43,6 +43,8 @@ module.exports.startServer = function startServer(options) {
   });
   
   
+  var StringifyForCircularRefs = require('JSONUtil').JSONUtil().stringify;
+  
   /**
    * Routing:
    *
@@ -55,8 +57,15 @@ module.exports.startServer = function startServer(options) {
      */
     var handleEjsRequest = function handleEjsRequest(req, res, file){
       file = file.toLowerCase();
-            
-      res.render(file, { req: req, sample: 'data' });
+      
+      // Make request object non-circular
+      
+      res.render(file, {
+        req: req,
+        JSON: {
+          stringify: StringifyForCircularRefs
+        }
+      });
     };
   
     // File is the requested file. (aka url)
