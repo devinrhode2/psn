@@ -42,12 +42,6 @@ module.exports.startServer = function startServer(options) {
     app.use(express.errorHandler());
   });
   
-  /*
-  // Require 'mu' mustache module
-  var mu = require('live-mu')
-    , util = require('util');
-  mu.root = __dirname + '/public';
-  */
   
   /**
    * Routing:
@@ -62,7 +56,7 @@ module.exports.startServer = function startServer(options) {
     var handleEjsRequest = function handleEjsRequest(req, res, file){
       file = file.toLowerCase();
             
-      res.render(file, { req: req });
+      res.render(file, { req: req, sample: 'data' });
     };
   
     // File is the requested file. (aka url)
