@@ -4,7 +4,10 @@ Same thing as PHP except you get to use javascript code in place of php code. Co
 
 ## Example
 
-    <p>Here's some html. <%= 'Heres some dynamic output'+user.name %> </p>
+    <p>
+      Here's some html.
+      <%= 'Heres some dynamic output'+user.name %>
+    </p>
 
 ## Install/Setup/Usage/slash
 
