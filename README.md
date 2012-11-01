@@ -9,7 +9,7 @@ Same thing as PHP except you get to use javascript code in place of php code. Co
 ## Install/Setup/Usage/slash
 
 * 1: Create new folder and put an empty server.js file in it
-* 3: Put `require('psn')` in the file.
+* 3: Put `require('psn').startServer()` in the file.
 * 4: Open the Terminal or Command Prompt at this directory and run:
 ```
     npm install devinrhode2/psn
@@ -22,7 +22,7 @@ Same thing as PHP except you get to use javascript code in place of php code. Co
 
 ## Contributing
 
-Anyone and everyone is welcome to contribute. [Please follow the guidelines.](/devinrhode/psn/blob/master/CONTRIBUTING.md)
+At this point you really should contribute. [Please follow the guidelines.](/devinrhode/psn/blob/master/CONTRIBUTING.md)
 
 ## Haters
 
