@@ -25,7 +25,7 @@ Same thing as PHP except you get to use javascript code in place of php code. Co
 
 ## Contributing
 
-At this point you really should contribute. [Please follow the guidelines.](/devinrhode/psn/blob/master/CONTRIBUTING.md)
+At this point you should really contribute if you use this, or consider feeding me to enhance it. [Please follow the guidelines.](/devinrhode/psn/blob/master/CONTRIBUTING.md)
 
 ## Haters
 
