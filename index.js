@@ -54,6 +54,9 @@ module.exports.startServer = function startServer(options) {
     } catch (e) {
       console.log('stylus require failed, please npm install stylus to use that');
     }
+    
+    console.log("PATH", path.join(cwd, options.root));
+    
     app.use(express.static(path.join(cwd, options.root)));
   });
   
