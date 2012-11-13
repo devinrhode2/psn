@@ -4,6 +4,10 @@ module.exports.startServer = function startServer(options) {
     return this.indexOf(substring) > -1;
   };
   
+  if (!options) options = {
+    root: 'public'
+  };
+  
   
   /**
    * Module dependencies.
@@ -16,25 +20,39 @@ module.exports.startServer = function startServer(options) {
   
   var app = express();
   
+  try {
+    require('JSONUtil');
+  } catch (e) {
+    console.error('you need to npm install JSONUtil');
+  }
+  
   app.configure(function appConfig(){
     app.set('port', process.env.PORT || 3000);
-    app.set('views', __dirname + '/public');
-    app.set('view engine', 'ejs'); // Probably don't need this
+    app.set('views', __dirname + '/'+options.root);
+    try {
+      require('ejs');
+      app.set('view engine', 'ejs'); // Probably don't need this
+    } catch (e) {
+      console.log('require(ejs) failed, npm install it please');
+    }
     app.use(express.favicon());
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     
     // From --sessions
-    if (!options) options = {};
     app.use(express.cookieParser(options.cookieSecret || 'psn trollin'));
     app.use(express.session({ secret: options.sessionSecret || 'PSN TROOOLLLS' }));
     
     app.use(app.router);
     
     // For use .styl files in public and have it 'just work'
-    app.use(require('stylus').middleware(__dirname + '/public'));
-    app.use(express.static(path.join(__dirname, 'public')));
+    try {
+      app.use(require('stylus').middleware(__dirname + '/'+options.root));
+    } catch (e) {
+      console.log('stylus require failed, please npm install stylus to use that');
+    }
+    app.use(express.static(path.join(__dirname, options.root)));
   });
   
   
