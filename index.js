@@ -4,11 +4,10 @@ module.exports.startServer = function startServer(options) {
     return this.indexOf(substring) > -1;
   };
   
-  if (!options) options = {
-    root: 'public'
-  };
+  if (!options) options = {};
   
-  var cwd = process.cwd();
+  var root = process.cwd() + (options.root ? '/'+options.root : '');
+  console.log("ROOT", root);
   
   
   /**
@@ -22,21 +21,10 @@ module.exports.startServer = function startServer(options) {
   
   var app = express();
   
-  try {
-    require('JSONUtil');
-  } catch (e) {
-    console.error('you need to npm install JSONUtil');
-  }
-  
   app.configure(function appConfig(){
     app.set('port', process.env.PORT || 3000);
-    app.set('views', cwd + '/'+options.root);
-    try {
-      require('ejs');
-      app.set('view engine', 'ejs'); // Probably don't need this
-    } catch (e) {
-      console.log('require(ejs) failed, npm install it please');
-    }
+    app.set('views', root);
+    app.set('view engine', 'ejs'); // Probably don't need this
     app.use(express.favicon());
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
@@ -49,15 +37,8 @@ module.exports.startServer = function startServer(options) {
     app.use(app.router);
     
     // For use .styl files in public and have it 'just work'
-    try {
-      app.use(require('stylus').middleware(cwd + '/'+options.root));
-    } catch (e) {
-      console.log('stylus require failed, please npm install stylus to use that');
-    }
-    
-    console.log("PATH", path.join(cwd, options.root));
-    
-    app.use(express.static(path.join(cwd, options.root)));
+    app.use(require('stylus').middleware(root));    
+    app.use(express.static(root));
   });
   
   
