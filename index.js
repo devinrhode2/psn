@@ -8,6 +8,8 @@ module.exports.startServer = function startServer(options) {
     root: 'public'
   };
   
+  var cwd = process.cwd();
+  
   
   /**
    * Module dependencies.
@@ -28,7 +30,7 @@ module.exports.startServer = function startServer(options) {
   
   app.configure(function appConfig(){
     app.set('port', process.env.PORT || 3000);
-    app.set('views', __dirname + '/'+options.root);
+    app.set('views', cwd + '/'+options.root);
     try {
       require('ejs');
       app.set('view engine', 'ejs'); // Probably don't need this
@@ -48,11 +50,11 @@ module.exports.startServer = function startServer(options) {
     
     // For use .styl files in public and have it 'just work'
     try {
-      app.use(require('stylus').middleware(__dirname + '/'+options.root));
+      app.use(require('stylus').middleware(cwd + '/'+options.root));
     } catch (e) {
       console.log('stylus require failed, please npm install stylus to use that');
     }
-    app.use(express.static(path.join(__dirname, options.root)));
+    app.use(express.static(path.join(cwd, options.root)));
   });
   
   
