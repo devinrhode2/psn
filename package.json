@@ -2,7 +2,10 @@
   "name": "psn",
   "version": "0.0.5",
   "description": "PSN - NOT PHOTOSHOP, OKAAAAY",
-  "author": "Devin Rhode <devinrhode2@gmail.com>",
+  "author": {
+    "name": "Devin Rhode",
+    "email": "devinrhode2@gmail.com"
+  },
   "main": "index.js",
   "preferGlobal": false,
   "dependencies": {
@@ -19,5 +22,15 @@
   },
   "engines": {
     "node": "*"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "readme": "# PHP style node, psn\n\nSame thing as PHP except you get to use javascript code in place of php code. Code delimiters are `<%` and `%>`\n\n## Example\n\n    <p>\n      Here's some html.\n      <%= 'Heres some dynamic output'+user.name %>\n    </p>\n\n## Install/Setup/Usage/slash\n\n* 1: Create new folder and put an empty server.js file in it\n* 3: Put `require('psn').startServer()` in the file.\n* 4: Open the Terminal or Command Prompt at this directory and run:\n```\n    npm install devinrhode2/psn\n    //This will fail if you don't have the latest version of node and npm\n```\n\n* 5: Create a site. Use .ejs files instead of .php. Good luck with databases or doing anything really interesting. I'm sarcastically serious.\n\n* 2: `undefined`\n\n## Contributing\n\nAt this point you should really contribute if you use this, or consider feeding me to enhance it. [Please follow the guidelines.](/devinrhode/psn/blob/master/CONTRIBUTING.md)\n\n## Haters\n\nShould refer to psn as __Not PhotoShop__ the carry on the acronym mis-ordering of php, __hypertext pre-processor__, this will assure it doesn't become widely known. The meanest way to hate is silently, so this is a compromise to simply aschew and confuse others about the meaning of the acronym `psn`\n\n## Trolling\n\nIssues tab is a fun place for this. However, Hardcore trolling(R) takes in the pull requests tab. Ideally the psn(R) project prefers really useful but sneakily shitty code that will bite people in the ass later. Failing silently, mis-naming functions, and leaking memory are all favorable things with psn. Code that fails to do this will probably not be accepted.\n\n# TAKE ME SRSLY, FOLLOW <a href=\"https://twitter.com/devinrhode2\">@DEVINRHODE2</a>",
+  "readmeFilename": "README.md",
+  "_id": "psn@0.0.5",
+  "dist": {
+    "shasum": "c35a5a27636f8ee69df3ac0f8b52c886f2bede97"
+  },
+  "_from": "psn"
 }
