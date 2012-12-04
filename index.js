@@ -15,15 +15,13 @@ var express = require('express')
 
 var app = express();
 
-var wait = 350; //for simulated lag on localhost, because I'm crazy about performance.
+var wait = 0; //for simulated lag on localhost, because I'm crazy about performance.
 process.env.NODE_ENV = 'production';
-process.env.ROOT = 'app';
 if (process.env.PORT && process.env.PORT !== 80) {
-  wait = 0;
-  process.env.NODE_ENV = 'production';
-  process.env.ROOT = 'dist';
+  wait = 350;
+  process.env.NODE_ENV = 'development';
 }
-var root = process.cwd() + (process.env.ROOT ? '/'+process.env.ROOT : '');
+var root = process.cwd() + '/dist';
 console.log("ROOT", root);
 
 app.configure(function appConfig(){
