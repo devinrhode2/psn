@@ -1,5 +1,7 @@
 # PHP style node, psn
 
+Broke right now, need to update express node module to the latest version and probably all the other modules. 
+
 Same thing as PHP except you get to use javascript code in place of php code. Code delimiters are `<%` and `%>`
 
 ## Example
