@@ -15,40 +15,29 @@ var express = require('express')
 
 var app = express();
 
-var wait = 0; //for simulated lag on localhost, because I'm crazy about performance.
 process.env.NODE_ENV = 'production';
 if (process.env.PORT && process.env.PORT !== 80) {
-  wait = 350;
   process.env.NODE_ENV = 'development';
 }
-var root = process.cwd() + '/dist';
+var root = process.cwd();
 console.log("ROOT", root);
 
-app.configure(function appConfig(){
-  app.set('port', process.env.PORT || 80);
-  app.set('views', root);
-  app.set('view engine', 'ejs'); // Probably don't need this
-  app.use(express.favicon());
-  app.use(express.logger('dev'));
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  
-  // From --sessions. `options` is no longer defined if you want to use this.
-  //app.use(express.cookieParser(options.cookieSecret || 'psn trollin'));
-  //app.use(express.session({ secret: options.sessionSecret || 'PSN TROOOLLLS' }));
-  
-  app.use(app.router);
-  
-  // For use .styl files in public and have it 'just work'
-  app.use(require('stylus').middleware(root));    
-  app.use(express.static(root));
-});
 
+// all environments
+app.set('port', process.env.PORT || 3000);
+app.set('views', root);
+app.set('view engine', 'ejs');
+app.use(express.favicon());
+app.use(express.logger('dev'));
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(app.router);
+app.use(express.static(root));
 
-app.configure('development', function(){
+// development only
+if ('development' == app.get('env')) {
   app.use(express.errorHandler());
-});
-
+}
 
 var StringifyForCircularRefs = require('JSONUtil').JSONUtil().stringify;
 
@@ -74,41 +63,39 @@ app.get('*', function(req, res, expressNext) {
 
   // File is the requested file. (aka url)
   file = req.params[0].substr(1, req.params[0].length);
-  setTimeout(function(){
-    if (file.contains('.ejs')) {
-      handleEjsRequest(req, res, file);
+  if (file.contains('.ejs')) {
+    handleEjsRequest(req, res, file);
+  } else {
+    if (file.contains('.')) {
+      if (file.contains('?')) {
+        throw 'woah, looks like you have a querystring for a non .ejs file. Please use a url to a .ejs file.';
+      }
+      
+      // Forward request to /public folder.
+      expressNext();
     } else {
-      if (file.contains('.')) {
-        if (file.contains('?')) {
-          throw 'woah, looks like you have a querystring for a non .ejs file. Please use a url to a .ejs file.';
-        }
+      
+      // If last character is a '/'
+      if (file.charAt(file.length - 1) === '/') {
         
-        // Forward request to /public folder.
-        expressNext();
+        // Point to index.ejs of that folder
+        file = file + 'index.ejs';
       } else {
         
-        // If last character is a '/'
-        if (file.charAt(file.length - 1) === '/') {
+        // Very very root of whole site
+        if (file === '') {
           
-          // Point to index.ejs of that folder
-          file = file + 'index.ejs';
+          // Point to 'index.ejs'
+          file = 'index.ejs';
         } else {
           
-          // Very very root of whole site
-          if (file === '') {
-            
-            // Point to 'index.ejs'
-            file = 'index.ejs';
-          } else {
-            
-            // Append '/index.ejs'
-            file = file + '/index.ejs';
-          }
+          // Append '/index.ejs'
+          file = file + '/index.ejs';
         }
-        handleEjsRequest(req, res, file);
       }
+      handleEjsRequest(req, res, file);
     }
-  }, wait);
+  }
 });
 
 
