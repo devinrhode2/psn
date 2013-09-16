@@ -38,3 +38,7 @@ Should refer to psn as __Not PhotoShop__ the carry on the acronym mis-ordering o
 Issues tab is a fun place for this. However, Hardcore trolling(R) takes in the pull requests tab. Ideally the psn(R) project prefers really useful but sneakily shitty code that will bite people in the ass later. Failing silently, mis-naming functions, and leaking memory are all favorable things with psn. Code that fails to do this will probably not be accepted.
 
 # TAKE ME SRSLY, FOLLOW <a href="https://twitter.com/devinrhode2">@DEVINRHODE2</a>
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/devinrhode2/psn/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
